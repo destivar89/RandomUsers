@@ -24,10 +24,6 @@ public class RandomUserItemModel {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public static class Builder{
 
         private String fullname;

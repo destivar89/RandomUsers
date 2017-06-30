@@ -13,12 +13,18 @@ public class RandomUsersMapper {
 
         List<RandomUserItemModel> items = new ArrayList<>();
 
+        if (data == null || data.getResults() == null) return items;
         for (Result result : data.getResults()){
+
+            String firstName = (result.getName() == null) ? "" : result.getName().getFirst();
+            String lastName = (result.getName() == null) ? "" : result.getName().getLast();
+            String thumbnail = (result.getPicture() == null) ? "" : result.getPicture().getThumbnail();
+
             RandomUserItemModel item = new RandomUserItemModel.Builder()
                     .setEmail(result.getEmail())
-                    .setFullname(result.getName().getFirst() + " " + result.getName().getLast())
+                    .setFullname(firstName + " " + lastName)
                     .setPhoneNumber(result.getPhone())
-                    .setThumbnailUrl(result.getPicture().getThumbnail())
+                    .setThumbnailUrl(thumbnail)
                     .build();
             items.add(item);
         }

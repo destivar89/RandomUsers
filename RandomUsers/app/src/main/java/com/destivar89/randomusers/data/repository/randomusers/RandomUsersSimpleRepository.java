@@ -5,6 +5,7 @@ import com.destivar89.randomusers.data.api.ApiClientGenerator;
 import com.destivar89.randomusers.data.api.RandomUsersService;
 import com.destivar89.randomusers.data.dto.randomusers.RandomUsersDTO;
 import com.destivar89.randomusers.data.repository.RepositoryCallback;
+import com.destivar89.randomusers.domain.exception.RepositoryException;
 
 import javax.inject.Inject;
 
@@ -29,7 +30,10 @@ public class RandomUsersSimpleRepository implements RandomUsersRepository {
         call.enqueue(new Callback<RandomUsersDTO>() {
             @Override
             public void onResponse(Call<RandomUsersDTO> call, Response<RandomUsersDTO> response) {
-                repositoryCallback.repositorySuccess(response.body());
+                if (response.code() == 200)
+                    repositoryCallback.repositorySuccess(response.body());
+                else
+                    repositoryCallback.repositoryFail(new RepositoryException("some error"));
             }
 
             @Override
