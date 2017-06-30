@@ -1,7 +1,11 @@
 package com.destivar89.randomusers.presentation.randomusers.view.fragment;
 
 
+import android.databinding.DataBindingUtil;
+import android.view.View;
+
 import com.destivar89.randomusers.R;
+import com.destivar89.randomusers.databinding.FragmentRandomusersBinding;
 import com.destivar89.randomusers.infrastructure.di.randomusers.DaggerRandomUsersComponent;
 import com.destivar89.randomusers.infrastructure.di.randomusers.RandomUsersComponent;
 import com.destivar89.randomusers.infrastructure.di.randomusers.RandomUsersModule;
@@ -32,10 +36,16 @@ public class RandomUsersFragment extends BaseFragment{
         if(component == null){
             component = DaggerRandomUsersComponent.builder()
                     .baseModule(getBaseModule())
-                    .randomUsersModule(new RandomUsersModule())
+                    .randomUsersModule(new RandomUsersModule(getActivity()))
                     .build();
         }
         component.inject(this);
+    }
+
+    @Override
+    protected void bindData(View rootview) {
+        FragmentRandomusersBinding binding =  DataBindingUtil.bind(rootview);
+        binding.setViewmodel(viewmodel);
     }
 
 }

@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.destivar89.randomusers.presentation.common.utils.EndlessScrollListener;
+import com.squareup.picasso.Picasso;
+
 public class CustomBindingAdapter {
 
     @BindingAdapter("visibility")
@@ -39,4 +42,17 @@ public class CustomBindingAdapter {
         recyclerView.setAdapter(adapter);
     }
 
+    @BindingAdapter("scrolllistener")
+    public static void setAdapter(RecyclerView recyclerView, EndlessScrollListener scrollListener){
+        recyclerView.addOnScrollListener(scrollListener);
+    }
+
+    @BindingAdapter("bind:imageUrl")
+    public static void loadImage(ImageView imageView, String thumbUrl){
+        if ( thumbUrl == null || thumbUrl.isEmpty() ) return;
+        Picasso.with(imageView.getContext())
+                .load( thumbUrl )
+                .noFade()
+                .into(imageView);
+    }
 }

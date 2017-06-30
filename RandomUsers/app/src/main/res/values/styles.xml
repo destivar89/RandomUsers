@@ -8,4 +8,69 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextSmall">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextXSmall">
+        <item name="android:textSize">@dimen/text_size_xsmall</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextLarge">
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextMedium">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextMedium.Bold" parent="@style/TextMedium">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextLarge.Bold" parent="@style/TextLarge">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextButton">
+        <item name="android:textSize">@dimen/text_size_button</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextLarge.Light" parent="@style/TextLarge">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="TextLarge.Light.Bold" parent="@style/TextLarge.Light">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextMedium.Light" parent="@style/TextMedium">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="TextButton.Light">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="TextMedium.Light.Bold" parent="@style/TextMedium.Light">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextSmall.Light" parent="@style/TextSmall">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="TextSmall.Light.Bold" parent="@style/TextSmall.Light">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextSmall.Bold" parent="@style/TextSmall">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

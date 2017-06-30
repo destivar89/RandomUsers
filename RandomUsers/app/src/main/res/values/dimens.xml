@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="line_space">1dp</dimen>
+    <dimen name="elevation">6dp</dimen>
+
+    <dimen name="space_xxlarge">128dp</dimen>
+    <dimen name="space_xlarge">64dp</dimen>
+    <dimen name="space_large">32dp</dimen>
+    <dimen name="space_normal">16dp</dimen>
+    <dimen name="space_small">8dp</dimen>
+    <dimen name="space_special">6dp</dimen>
+    <dimen name="space_xsmall">4dp</dimen>
+    <dimen name="space_xxsmall">2dp</dimen>
+
+    <dimen name="text_size_large">22sp</dimen>
+    <dimen name="text_size_medium">20sp</dimen>
+    <dimen name="text_size_button">18sp</dimen>
+    <dimen name="text_size_small">16sp</dimen>
+    <dimen name="text_size_xsmall">12sp</dimen>
+
+    <dimen name="thumbSize">100dp</dimen>
+
+</resources>
