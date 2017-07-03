@@ -8,6 +8,8 @@ import com.destivar89.randomusers.data.repository.randomusers.RandomUsersReposit
 import com.destivar89.randomusers.data.repository.randomusers.RandomUsersSimpleRepository;
 import com.destivar89.randomusers.domain.interactor.randomusers.RandomUsersInteractor;
 import com.destivar89.randomusers.domain.interactor.randomusers.RandomUsersInteractorImpl;
+import com.destivar89.randomusers.domain.interactor.removedusers.RemovedUsersInteractor;
+import com.destivar89.randomusers.domain.interactor.removedusers.RemovedUsersInteractorImpl;
 import com.destivar89.randomusers.infrastructure.di.common.BaseModule;
 import com.destivar89.randomusers.presentation.common.viewmodel.Viewmodel;
 import com.destivar89.randomusers.presentation.randomusers.adapter.RandomUsersAdapter;
@@ -15,6 +17,7 @@ import com.destivar89.randomusers.presentation.randomusers.viewmodel.RandomUsers
 
 import dagger.Module;
 import dagger.Provides;
+import io.realm.Realm;
 
 @Module(includes = BaseModule.class)
 public class RandomUsersModule {
@@ -33,6 +36,16 @@ public class RandomUsersModule {
     @Provides
     RandomUsersInteractor providesLoginInteractor(RandomUsersInteractorImpl interactor){
         return interactor;
+    }
+
+    @Provides
+    RemovedUsersInteractor providesRemovedUsersInteractor(RemovedUsersInteractorImpl interactor){
+        return interactor;
+    }
+
+    @Provides
+    Realm providesRealm(){
+        return Realm.getDefaultInstance();
     }
 
     @Provides

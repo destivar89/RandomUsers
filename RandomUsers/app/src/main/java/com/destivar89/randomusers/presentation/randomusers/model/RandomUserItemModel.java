@@ -24,6 +24,18 @@ public class RandomUserItemModel {
         return phoneNumber;
     }
 
+    @Override
+    public boolean equals(Object model) {
+
+        if (model == null || !(model instanceof RandomUserItemModel)) return false;
+        RandomUserItemModel item = (RandomUserItemModel) model;
+
+        return ((this.fullname).equals(item.fullname)
+                && (this.email == item.email)
+                && (this.phoneNumber).equals(item.phoneNumber));
+    }
+
+
     public static class Builder{
 
         private String fullname;

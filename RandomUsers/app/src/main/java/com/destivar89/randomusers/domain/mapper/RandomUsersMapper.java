@@ -10,7 +10,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class RandomUsersMapper {
 
@@ -34,6 +36,8 @@ public class RandomUsersMapper {
                     .build();
             items.add(item);
         }
+
+        items = removeRepeatedUsers(items);
 
         return items;
 
@@ -64,6 +68,16 @@ public class RandomUsersMapper {
                     .build();
 
         return model;
+
+    }
+
+    private static List<RandomUserItemModel> removeRepeatedUsers(List<RandomUserItemModel> items){
+
+        Set<RandomUserItemModel> set = new HashSet<>();
+        set.addAll(items);
+        items.clear();
+        items.addAll(set);
+        return items;
 
     }
 

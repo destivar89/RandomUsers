@@ -35,6 +35,14 @@ public class RandomUsersAdapter extends RecyclerView.Adapter<RandomUsersAdapter.
         this.items.addAll(items);
     }
 
+    public void removeItem(int adapterPosition) {
+        items.remove(adapterPosition);
+    }
+
+    public RandomUserItemModel getItem(int adapterPosition) {
+        return items.get(adapterPosition);
+    }
+
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }

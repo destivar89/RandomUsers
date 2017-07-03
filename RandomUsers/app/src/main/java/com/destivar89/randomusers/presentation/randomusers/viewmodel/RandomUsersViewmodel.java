@@ -7,11 +7,13 @@ import android.databinding.Bindable;
 import android.databinding.ObservableBoolean;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
 import com.destivar89.randomusers.data.dto.randomusers.RandomUsersDTO;
 import com.destivar89.randomusers.domain.interactor.InteractorCallback;
 import com.destivar89.randomusers.domain.interactor.randomusers.RandomUsersInteractor;
+import com.destivar89.randomusers.domain.interactor.removedusers.RemovedUsersInteractor;
 import com.destivar89.randomusers.domain.mapper.RandomUsersMapper;
 import com.destivar89.randomusers.presentation.common.navigator.Navigator;
 import com.destivar89.randomusers.presentation.common.utils.EndlessScrollListener;
@@ -28,20 +30,23 @@ public class RandomUsersViewmodel extends BaseObservable implements Viewmodel, I
     private static final int FIRST_PAGE = 0;
 
     private Navigator navigator;
-    private Activity activityContext;
     private RandomUsersInteractor interactor;
     private RandomUsersAdapter adapter;
+    private RemovedUsersInteractor removedUsersInteractor;
+
     private LinearLayoutManager layoutManager;
 
     private ObservableBoolean loading = new ObservableBoolean(false);
     private ObservableBoolean error = new ObservableBoolean(false);
 
     @Inject
-    public RandomUsersViewmodel(Navigator navigator, Activity activityContext, RandomUsersInteractor interactor, RandomUsersAdapter adapter){
+    public RandomUsersViewmodel(Navigator navigator, Activity activityContext, RandomUsersInteractor interactor,
+                                RandomUsersAdapter adapter, RemovedUsersInteractor removedUsersInteractor){
+
         this.navigator = navigator;
-        this.activityContext = activityContext;
         this.interactor = interactor;
         this.adapter = adapter;
+        this.removedUsersInteractor = removedUsersInteractor;
 
         layoutManager = new LinearLayoutManager(activityContext);
         adapter.setOnItemClickListener(this);
@@ -55,6 +60,7 @@ public class RandomUsersViewmodel extends BaseObservable implements Viewmodel, I
     @Override
     public void success(RandomUsersDTO data) {
         List<RandomUserItemModel> items = RandomUsersMapper.mapDtoToUserModelList(data);
+        items = removedUsersInteractor.applyRemovedUsers(items);
         adapter.addItems(items);
         adapter.notifyDataSetChanged();
         loading.set(false);
@@ -94,6 +100,28 @@ public class RandomUsersViewmodel extends BaseObservable implements Viewmodel, I
                 interactor.retrieveRandomUsers(page, RandomUsersViewmodel.this);
             }
         };
+    }
+
+    @Bindable
+    public ItemTouchHelper getItemTouchHelper(){
+
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                removedUsersInteractor.removeUser(adapter.getItem(viewHolder.getAdapterPosition()));
+                adapter.removeItem(viewHolder.getAdapterPosition());
+                adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+            }
+        };
+
+        return new ItemTouchHelper(simpleItemTouchCallback);
+
     }
 
     @Override

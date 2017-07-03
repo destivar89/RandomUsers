@@ -3,6 +3,7 @@ package com.destivar89.randomusers.infrastructure.binding;
 
 import android.databinding.BindingAdapter;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,6 +41,11 @@ public class CustomBindingAdapter {
     @BindingAdapter("adapter")
     public static void setAdapter(RecyclerView recyclerView, RecyclerView.Adapter adapter){
         recyclerView.setAdapter(adapter);
+    }
+
+    @BindingAdapter("itemtouchhelper")
+    public static void setItemTouchHelper(RecyclerView recyclerView, ItemTouchHelper itemTouchHelper){
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     @BindingAdapter("scrolllistener")
