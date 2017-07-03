@@ -28,6 +28,31 @@
             android:layout_centerInParent="true"
             android:visibility="@{viewmodel.loading ? View.VISIBLE : View.GONE}"/>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:visibility="@{viewmodel.error ? View.VISIBLE : View.GONE}">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/space_xlarge"
+                android:paddingRight="@dimen/space_xlarge"
+                android:gravity="center"
+                android:text="@string/randomusers_generic_error_text"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_normal"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/common_retry"
+                android:onClick="@{viewmodel::onClickRetry}"/>
+
+        </LinearLayout>
+
     </RelativeLayout>
 
 </layout>

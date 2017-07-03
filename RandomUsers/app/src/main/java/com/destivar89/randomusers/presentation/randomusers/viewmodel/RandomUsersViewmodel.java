@@ -7,6 +7,7 @@ import android.databinding.Bindable;
 import android.databinding.ObservableBoolean;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.destivar89.randomusers.data.dto.randomusers.RandomUsersDTO;
 import com.destivar89.randomusers.domain.interactor.InteractorCallback;
@@ -23,6 +24,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class RandomUsersViewmodel extends BaseObservable implements Viewmodel, InteractorCallback<RandomUsersDTO>, RandomUsersAdapter.OnItemClickListener {
+
+    private static final int FIRST_PAGE = 0;
 
     private Navigator navigator;
     private Activity activityContext;
@@ -46,7 +49,7 @@ public class RandomUsersViewmodel extends BaseObservable implements Viewmodel, I
 
     public void loadUsers(){
         loading.set(true);
-        interactor.retrieveRandomUsers(this);
+        interactor.retrieveRandomUsers(FIRST_PAGE, this);
     }
 
     @Override
@@ -88,13 +91,18 @@ public class RandomUsersViewmodel extends BaseObservable implements Viewmodel, I
         return new EndlessScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                interactor.retrieveRandomUsers(RandomUsersViewmodel.this);
+                interactor.retrieveRandomUsers(page, RandomUsersViewmodel.this);
             }
         };
     }
 
     @Override
     public void onItemClick(RandomUserItemModel model) {
-        //TODO: navigator go to Detail
+        navigator.goToDetail(model);
+    }
+
+    public void onClickRetry(View v){
+        loading.set(true);
+        interactor.retrieveRandomUsers(FIRST_PAGE, this);
     }
 }

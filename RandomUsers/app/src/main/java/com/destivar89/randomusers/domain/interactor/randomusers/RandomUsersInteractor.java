@@ -6,6 +6,6 @@ import com.destivar89.randomusers.domain.interactor.InteractorCallback;
 
 public interface RandomUsersInteractor {
 
-    void retrieveRandomUsers(InteractorCallback<RandomUsersDTO> callback);
+    void retrieveRandomUsers(int page, InteractorCallback<RandomUsersDTO> callback);
 
 }

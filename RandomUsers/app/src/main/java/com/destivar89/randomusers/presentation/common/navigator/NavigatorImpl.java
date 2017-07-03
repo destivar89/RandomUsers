@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.destivar89.randomusers.presentation.randomusers.model.RandomUserItemModel;
+
 import javax.inject.Inject;
 
 public class NavigatorImpl implements Navigator {
@@ -55,4 +57,10 @@ public class NavigatorImpl implements Navigator {
     }
 
 
+    @Override
+    public void goToDetail(RandomUserItemModel model) {
+
+
+
+    }
 }

@@ -12,7 +12,6 @@ public class RandomUsersInteractorImpl implements RandomUsersInteractor {
 
     public static final int PAGE_SIZE = 20;
 
-    private int page = 0;
     private RandomUsersRepository repository;
 
     @Inject
@@ -21,7 +20,7 @@ public class RandomUsersInteractorImpl implements RandomUsersInteractor {
     }
 
     @Override
-    public void retrieveRandomUsers(final InteractorCallback<RandomUsersDTO> callback) {
+    public void retrieveRandomUsers(int page, final InteractorCallback<RandomUsersDTO> callback) {
 
         repository.retrieveRandomUsers(page, PAGE_SIZE, new RepositoryCallback<RandomUsersDTO>() {
             @Override

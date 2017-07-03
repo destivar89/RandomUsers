@@ -39,7 +39,7 @@ public class RandomUsersInteractorImplTest {
     @Test
     public void retrieveRandomUsers_shouldCallRepositoryMethod() throws Exception {
 
-        interactor.retrieveRandomUsers(interactorCallback);
+        interactor.retrieveRandomUsers(0, interactorCallback);
 
         verify(repository).retrieveRandomUsers(anyInt(), anyInt(), any(RepositoryCallback.class));
 
