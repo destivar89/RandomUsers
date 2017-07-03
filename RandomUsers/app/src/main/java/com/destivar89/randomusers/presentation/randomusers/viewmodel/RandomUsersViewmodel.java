@@ -11,6 +11,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
 import com.destivar89.randomusers.data.dto.randomusers.RandomUsersDTO;
+import com.destivar89.randomusers.data.dto.randomusers.Result;
 import com.destivar89.randomusers.domain.interactor.InteractorCallback;
 import com.destivar89.randomusers.domain.interactor.randomusers.RandomUsersInteractor;
 import com.destivar89.randomusers.domain.interactor.removedusers.RemovedUsersInteractor;
@@ -39,6 +40,8 @@ public class RandomUsersViewmodel extends BaseObservable implements Viewmodel, I
     private ObservableBoolean loading = new ObservableBoolean(false);
     private ObservableBoolean error = new ObservableBoolean(false);
 
+    private RandomUsersDTO data;
+
     @Inject
     public RandomUsersViewmodel(Navigator navigator, Activity activityContext, RandomUsersInteractor interactor,
                                 RandomUsersAdapter adapter, RemovedUsersInteractor removedUsersInteractor){
@@ -59,6 +62,7 @@ public class RandomUsersViewmodel extends BaseObservable implements Viewmodel, I
 
     @Override
     public void success(RandomUsersDTO data) {
+        this.data = data;
         List<RandomUserItemModel> items = RandomUsersMapper.mapDtoToUserModelList(data);
         items = removedUsersInteractor.applyRemovedUsers(items);
         adapter.addItems(items);
@@ -126,7 +130,16 @@ public class RandomUsersViewmodel extends BaseObservable implements Viewmodel, I
 
     @Override
     public void onItemClick(RandomUserItemModel model) {
-        navigator.goToDetail(model);
+        Result result = getResultForModel(model);
+        navigator.goToDetail(RandomUsersMapper.mapDtoToDetailModel(result));
+    }
+
+    private Result getResultForModel(RandomUserItemModel model) {
+        for (Result result : data.getResults()){
+            if (result.getEmail().equals(model.getEmail()))
+                return result;
+        }
+        return null;
     }
 
     public void onClickRetry(View v){

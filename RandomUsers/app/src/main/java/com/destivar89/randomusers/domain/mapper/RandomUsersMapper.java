@@ -81,11 +81,22 @@ public class RandomUsersMapper {
 
     }
 
-    private static String formatDate(String date){
+    private static String formatDate(String dateFromService){
 
+        Date date = new Date();
+
+        DateFormat formatFromService = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         DateFormat formatResult = new SimpleDateFormat("dd/MM/yyyy");
 
-        return formatResult.format(new Date(Long.parseLong(date)*1000));
+        try {
+
+            date = formatFromService.parse(dateFromService);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return formatResult.format(date);
 
     }
 
