@@ -20,5 +20,6 @@
     <dimen name="text_size_xsmall">12sp</dimen>
 
     <dimen name="thumbSize">100dp</dimen>
+    <dimen name="detail_thumb_size">300dp</dimen>
 
 </resources>

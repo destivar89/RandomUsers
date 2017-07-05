@@ -45,11 +45,11 @@ public class RandomUsersMapper {
 
     public static DetailModel mapDtoToDetailModel(Result result) {
 
-        if (result == null ) return new DetailModel();
+        if (result == null ) return null;
 
         String firstName = (result.getName() == null) ? "" : result.getName().getFirst();
         String lastName = (result.getName() == null) ? "" : result.getName().getLast();
-        String thumbnail = (result.getPicture() == null) ? "" : result.getPicture().getThumbnail();
+        String thumbnail = (result.getPicture() == null) ? "" : result.getPicture().getLarge();
         String phone = (result.getPhone() == null) ? "" : result.getPhone();
         String gender = (result.getGender() == null) ? "" : result.getGender();
         String street = (result.getLocation() == null) ? "" : result.getLocation().getStreet();

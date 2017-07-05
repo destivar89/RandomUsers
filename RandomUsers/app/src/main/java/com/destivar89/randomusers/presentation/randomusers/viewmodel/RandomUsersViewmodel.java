@@ -22,6 +22,7 @@ import com.destivar89.randomusers.presentation.common.viewmodel.Viewmodel;
 import com.destivar89.randomusers.presentation.randomusers.adapter.RandomUsersAdapter;
 import com.destivar89.randomusers.presentation.randomusers.model.RandomUserItemModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -40,7 +41,7 @@ public class RandomUsersViewmodel extends BaseObservable implements Viewmodel, I
     private ObservableBoolean loading = new ObservableBoolean(false);
     private ObservableBoolean error = new ObservableBoolean(false);
 
-    private RandomUsersDTO data;
+    private List<Result> results = new ArrayList<>();
 
     @Inject
     public RandomUsersViewmodel(Navigator navigator, Activity activityContext, RandomUsersInteractor interactor,
@@ -62,7 +63,7 @@ public class RandomUsersViewmodel extends BaseObservable implements Viewmodel, I
 
     @Override
     public void success(RandomUsersDTO data) {
-        this.data = data;
+        results.addAll(data.getResults());
         List<RandomUserItemModel> items = RandomUsersMapper.mapDtoToUserModelList(data);
         items = removedUsersInteractor.applyRemovedUsers(items);
         adapter.addItems(items);
@@ -135,7 +136,7 @@ public class RandomUsersViewmodel extends BaseObservable implements Viewmodel, I
     }
 
     private Result getResultForModel(RandomUserItemModel model) {
-        for (Result result : data.getResults()){
+        for (Result result : results){
             if (result.getEmail().equals(model.getEmail()))
                 return result;
         }

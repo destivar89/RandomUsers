@@ -6,8 +6,10 @@ import com.destivar89.randomusers.data.dto.randomusers.RandomUsersDTO;
 import com.destivar89.randomusers.domain.interactor.InteractorCallback;
 import com.destivar89.randomusers.domain.interactor.randomusers.RandomUsersInteractor;
 import com.destivar89.randomusers.domain.interactor.randomusers.RandomUsersInteractorImpl;
+import com.destivar89.randomusers.domain.interactor.removedusers.RemovedUsersInteractorImpl;
 import com.destivar89.randomusers.domain.mapper.RandomUsersMapper;
 import com.destivar89.randomusers.presentation.common.navigator.NavigatorImpl;
+import com.destivar89.randomusers.presentation.detail.model.DetailModel;
 import com.destivar89.randomusers.presentation.randomusers.adapter.RandomUsersAdapter;
 import com.destivar89.randomusers.presentation.randomusers.model.RandomUserItemModel;
 
@@ -40,12 +42,15 @@ public class RandomUsersViewmodelTest {
     RandomUsersInteractorImpl interactor;
 
     @Mock
+    RemovedUsersInteractorImpl removedUsersInteractor;
+
+    @Mock
     RandomUsersAdapter adapter;
 
     @Before
     public void setUp(){
 
-        viewmodel = new RandomUsersViewmodel(navigator, activityContext, interactor, adapter);
+        viewmodel = new RandomUsersViewmodel(navigator, activityContext, interactor, adapter, removedUsersInteractor);
 
     }
 
@@ -74,7 +79,7 @@ public class RandomUsersViewmodelTest {
 
         viewmodel.onItemClick(randomUserItemModel);
 
-        verify(navigator).goToDetail();
+        verify(navigator).goToDetail(any(DetailModel.class));
 
     }
 

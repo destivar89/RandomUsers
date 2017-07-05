@@ -4,8 +4,6 @@ package com.destivar89.randomusers.presentation.detail.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.destivar89.randomusers.presentation.common.view.activity.BaseActivity;
@@ -25,9 +23,9 @@ public class DetailActivity extends BaseActivity {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(Bundle savedInstanceState) {
         title = ((DetailModel) getIntent().getSerializableExtra(EXTRA_DETAIL_MODEL)).getFullname();
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -38,6 +36,11 @@ public class DetailActivity extends BaseActivity {
     @Override
     protected String getToolbarTitle() {
         return title;
+    }
+
+    @Override
+    protected boolean getToolbarShowBack() {
+        return true;
     }
 
 }

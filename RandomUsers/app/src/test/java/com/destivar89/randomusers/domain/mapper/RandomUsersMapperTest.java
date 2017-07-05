@@ -1,10 +1,10 @@
 package com.destivar89.randomusers.domain.mapper;
 
-import com.destivar89.randomusers.R;
 import com.destivar89.randomusers.data.dto.randomusers.Name;
 import com.destivar89.randomusers.data.dto.randomusers.Picture;
 import com.destivar89.randomusers.data.dto.randomusers.RandomUsersDTO;
 import com.destivar89.randomusers.data.dto.randomusers.Result;
+import com.destivar89.randomusers.presentation.detail.model.DetailModel;
 import com.destivar89.randomusers.presentation.randomusers.model.RandomUserItemModel;
 
 import org.junit.Test;
@@ -12,7 +12,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class RandomUsersMapperTest {
 
@@ -51,6 +53,34 @@ public class RandomUsersMapperTest {
 
     }
 
+    @Test
+    public void mapDtoToDetailModel_withNullResult_shouldReturnNull(){
+
+        assertNull(RandomUsersMapper.mapDtoToDetailModel(null));
+
+    }
+
+    @Test
+    public void mapDtoToDetailModel_withResult_shouldReturnModel(){
+
+        String expectedFullname = "first last";
+        String expectedEmail = "email";
+        String expectedPhone = "phone";
+        String expectedThumbnail = "large";
+        String expectedRegisteredDate = "08/08/2017";
+
+        RandomUsersDTO data = buildDto();
+
+        DetailModel model = RandomUsersMapper.mapDtoToDetailModel(data.getResults().get(0));
+
+        assertEquals(expectedFullname, model.getFullname());
+        assertEquals(expectedEmail, model.getEmail());
+        assertEquals(expectedPhone, model.getPhoneNumber());
+        assertEquals(expectedThumbnail, model.getThumbnailUrl());
+        assertEquals(expectedRegisteredDate, model.getRegisteredDate());
+
+    }
+
     private RandomUsersDTO buildDto(){
         RandomUsersDTO data = new RandomUsersDTO();
 
@@ -62,8 +92,10 @@ public class RandomUsersMapperTest {
         result.setName(name);
         result.setEmail("email");
         result.setPhone("phone");
+        result.setRegistered("2017-08-08 00:00:00");
         Picture picture = new Picture();
         picture.setThumbnail("thumb");
+        picture.setLarge("large");
         result.setPicture(picture);
 
         results.add(result);

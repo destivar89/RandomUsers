@@ -18,4 +18,9 @@ public class RandomUsersActivity extends BaseActivity {
     protected String getToolbarTitle() {
         return getString(R.string.app_name);
     }
+
+    @Override
+    protected boolean getToolbarShowBack() {
+        return false;
+    }
 }

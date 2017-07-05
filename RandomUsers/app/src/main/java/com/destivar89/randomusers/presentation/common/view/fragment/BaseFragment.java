@@ -39,14 +39,10 @@ public abstract class BaseFragment extends Fragment {
         bindData(rootView);
         ButterKnife.bind(this, rootView);
 
+        loadInitialData();
+
         return rootView;
 
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadInitialData();
     }
 
     protected Logger getLog(){

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.destivar89.randomusers.R;
 import com.destivar89.randomusers.infrastructure.log.Logger;
@@ -19,6 +20,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract Fragment getContentFragment();
 
     protected abstract String getToolbarTitle();
+
+    protected abstract boolean getToolbarShowBack();
 
     protected void loadInitialData(){}
 
@@ -35,13 +38,19 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         initToolbar();
         initFragmentContainer(R.id.fragment_container, getContentFragment());
+        loadInitialData();
 
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        loadInitialData();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     protected void initFragmentContainer(int containerId, Fragment fragment) {
@@ -60,7 +69,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private void initToolbar() {
         getSupportActionBar().setTitle(getToolbarTitle());
-    }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(getToolbarShowBack());
+        getSupportActionBar().setDisplayShowHomeEnabled(getToolbarShowBack());
 
+    }
 
 }
